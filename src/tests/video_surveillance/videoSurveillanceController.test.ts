@@ -1,5 +1,5 @@
 import {describe} from "../../testLib";
-import {FakeMotionSensor, FakeVideoRecorder} from "./fakes";
+import {SpyRecorder, StubSensorDetectingMotion, StubSensorDetectingNoMotion} from "./fakes";
 import {VideoSurveillanceController} from "../../video_surveillance/videoSurveillanceController";
 
 /**
@@ -11,33 +11,23 @@ import {VideoSurveillanceController} from "../../video_surveillance/videoSurveil
 
 describe(`Camera controller`, () => {
     it('asks the video recorder to stop recording when the sensor does not detect movement', () => {
-        let called = false;
-        const saveCall = () => {
-            called = true;
-        }
-        const sensor = new FakeMotionSensor();
-        const recorder = new FakeVideoRecorder();
-        recorder.stopRecording = saveCall;
+        const sensor = new StubSensorDetectingNoMotion();
+        const recorder = new SpyRecorder();
         const controller = new VideoSurveillanceController(sensor, recorder);
 
         controller.recordMotion();
 
-        expect(called).toBeTruthy()
+        expect(recorder.stopCalled).toBeTruthy()
     });
 
     it('asks the video recorder to start recording when the sensor detects movement', () => {
-        let called = false;
-        const saveCall = () => {
-            called = true;
-        }
-        const sensor = new FakeMotionSensor();
+        const sensor = new StubSensorDetectingMotion();
         sensor.isDetectingMotion = () => true;
-        const recorder = new FakeVideoRecorder();
-        recorder.startRecording = saveCall;
+        const recorder = new SpyRecorder();
         const controller = new VideoSurveillanceController(sensor, recorder);
 
         controller.recordMotion();
 
-        expect(called).toBeTruthy();
+        expect(recorder.startCalled).toBeTruthy();
     });
 })
