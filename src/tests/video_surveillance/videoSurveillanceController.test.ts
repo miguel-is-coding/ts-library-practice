@@ -1,6 +1,7 @@
 import {describe} from "../../testLib";
-import {SpyRecorder, StubSensorDetectingMotion, StubSensorDetectingNoMotion} from "./fakes";
+import {FakeSensor, FakeVideoRecorder} from "./fakes";
 import {VideoSurveillanceController} from "../../video_surveillance/videoSurveillanceController";
+import {MotionSensor, VideoRecorder} from "../../video_surveillance/videoSurveillance";
 
 /**
  * - Command the video recorder to stop recording when the motion sensor does not detect movement
@@ -10,24 +11,45 @@ import {VideoSurveillanceController} from "../../video_surveillance/videoSurveil
  */
 
 describe(`Camera controller`, () => {
+    let sensor: MotionSensor;
+    let recorder: VideoRecorder;
+    let controller: VideoSurveillanceController;
+
+    beforeEach(() => {
+        sensor = new FakeSensor();
+        recorder = new FakeVideoRecorder();
+        controller = new VideoSurveillanceController(sensor, recorder);
+    });
+
     it('asks the video recorder to stop recording when the sensor does not detect movement', () => {
-        const sensor = new StubSensorDetectingNoMotion();
-        const recorder = new SpyRecorder();
-        const controller = new VideoSurveillanceController(sensor, recorder);
+        const stubSensor = jest.spyOn(sensor, 'isDetectingMotion');
+        stubSensor.mockImplementation(() => false);
+        const spyRecorder = jest.spyOn(recorder, 'stopRecording');
 
         controller.recordMotion();
 
-        expect(recorder.stopCalled).toBeTruthy()
+        expect(spyRecorder).toHaveBeenCalled();
     });
 
     it('asks the video recorder to start recording when the sensor detects movement', () => {
-        const sensor = new StubSensorDetectingMotion();
-        sensor.isDetectingMotion = () => true;
-        const recorder = new SpyRecorder();
-        const controller = new VideoSurveillanceController(sensor, recorder);
+        const stubSensor = jest.spyOn(sensor, 'isDetectingMotion');
+        stubSensor.mockImplementation(() => true);
+        const spyRecorder = jest.spyOn(recorder, 'startRecording');
 
         controller.recordMotion();
 
-        expect(recorder.startCalled).toBeTruthy();
+        expect(spyRecorder).toHaveBeenCalled();
+    });
+
+    it('asks the video recorder to stop recording when the sensor throws an unexpected error', () => {
+        const stubSensor = jest.spyOn(sensor, 'isDetectingMotion');
+        stubSensor.mockImplementation(() => {
+            throw new Error('Unexpected Error')
+        });
+        const spyRecorder = jest.spyOn(recorder, 'stopRecording');
+
+        controller.recordMotion();
+
+        expect(spyRecorder).toHaveBeenCalled();
     });
 })
