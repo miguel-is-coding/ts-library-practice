@@ -1,4 +1,3 @@
-import {describe} from "../../testLib";
 import {FakeSensor, FakeVideoRecorder} from "./fakes";
 import {VideoSurveillanceController} from "../../video_surveillance/videoSurveillanceController";
 import {MotionSensor, VideoRecorder} from "../../video_surveillance/videoSurveillance";
