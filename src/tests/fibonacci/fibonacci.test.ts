@@ -1,5 +1,5 @@
 function fibonacci(number: number) {
-
+    return 0;
 }
 
 describe('Fibonacci should', () => {
