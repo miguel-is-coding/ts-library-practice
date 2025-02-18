@@ -10,7 +10,7 @@ describe('Fibonacci should', () => {
     });
 
     it('be the addition of the preceding two values for a number', () => {
-        expect(fibonacci(2)).toBe(fibonacci(0) + fibonacci(1));
-        expect(fibonacci(3)).toBe(fibonacci(1) + fibonacci(2));
+        [2, 3, 4, 5].forEach((number) =>
+            expect(fibonacci(number)).toBe(fibonacci(number - 1) + fibonacci(number - 2)))
     });
 });
