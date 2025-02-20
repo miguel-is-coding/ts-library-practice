@@ -24,5 +24,6 @@ describe('Prime factors', () => {
         expect(primeFactorsOf(2)).toEqual([2]);
         expect(primeFactorsOf(4)).toEqual([2, 2]);
         expect(primeFactorsOf(8)).toEqual([2, 2, 2]);
+        expect(primeFactorsOf(3)).toEqual([3]);
     });
 });
