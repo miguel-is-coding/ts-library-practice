@@ -23,5 +23,6 @@ describe('Prime factors', () => {
     it('finds the prime composition of the given number', () => {
         expect(primeFactorsOf(2)).toEqual([2]);
         expect(primeFactorsOf(4)).toEqual([2, 2]);
+        expect(primeFactorsOf(8)).toEqual([2, 2, 2]);
     });
 });
