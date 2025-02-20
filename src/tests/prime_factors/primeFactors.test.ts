@@ -13,4 +13,12 @@ describe('Prime factors', () => {
     it('orders the prime factors from the smallest to the biggest', () => {
         expect(primeFactorsOf(1155)).toEqual([3, 5, 7, 11]);
     });
+
+    it('knows that the first prime is number one', () => {
+        expect(primeFactorsOf(1)).toEqual([1]);
+    });
+
+    it('only accepts positive numbers', () => {
+        expect(() => primeFactorsOf(-1)).toThrow();
+    });
 });
