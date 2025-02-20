@@ -1,15 +1,4 @@
-function primeFactorsOf(number: number) {
-    let factor = 2;
-    while (number % factor !== 0) {
-        ++factor;
-    }
-    const factors = [factor];
-    const remainder = number / factor;
-    if (remainder > 1) {
-        return factors.concat(primeFactorsOf(remainder));
-    }
-    return factors;
-}
+import {primeFactorsOf} from "../../prime_factors/primeFactors";
 
 describe('Prime factors', () => {
     it('finds the prime composition of the given number', () => {
