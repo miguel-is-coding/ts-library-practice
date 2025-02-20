@@ -3,7 +3,7 @@ function primeFactorsOf(number: number) {
     const factors = [factor];
     const remainder = number / factor;
     if (remainder > 1) {
-        return factors.concat(factor)
+        return factors.concat(primeFactorsOf(remainder))
     }
     return factors;
 }
