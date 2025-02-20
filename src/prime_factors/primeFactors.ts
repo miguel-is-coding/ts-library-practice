@@ -1,12 +1,13 @@
-export function primeFactorsOf(number: number) {
+function findSmallestPrime(number: number) {
     let factor = 2;
     while (number % factor !== 0) {
         ++factor;
     }
-    const factors = [factor];
-    const remainder = number / factor;
-    if (remainder > 1) {
-        return factors.concat(primeFactorsOf(remainder));
-    }
-    return factors;
+    return factor;
+}
+
+export function primeFactorsOf(number: number) {
+    let prime = findSmallestPrime(number);
+    const remainder = number / prime;
+    return remainder <= 1 ? [prime] : [prime].concat(primeFactorsOf(remainder));
 }
