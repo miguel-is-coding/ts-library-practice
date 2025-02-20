@@ -30,5 +30,6 @@ describe('Prime factors', () => {
         expect(primeFactorsOf(3)).toEqual([3]);
         expect(primeFactorsOf(9)).toEqual([3, 3]);
         expect(primeFactorsOf(6)).toEqual([2, 3]);
+        expect(primeFactorsOf(25)).toEqual([5, 5]);
     });
 });
