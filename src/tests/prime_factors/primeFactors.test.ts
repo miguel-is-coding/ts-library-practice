@@ -15,8 +15,8 @@ function primeFactorsOf(number: number) {
  * Cases:
  * x 2 -> 2
  * x 4 -> [2,2]
- * 8 -> [2,2,2]
- * 3 -> [3]
+ * x 8 -> [2,2,2]
+ * x 3 -> [3]
  * 9 -> [3,3]
  * 6 -> [2,3]
  * 25 -> [5,5]
@@ -28,5 +28,7 @@ describe('Prime factors', () => {
         expect(primeFactorsOf(4)).toEqual([2, 2]);
         expect(primeFactorsOf(8)).toEqual([2, 2, 2]);
         expect(primeFactorsOf(3)).toEqual([3]);
+        expect(primeFactorsOf(9)).toEqual([3, 3]);
+        expect(primeFactorsOf(6)).toEqual([2, 3]);
     });
 });
