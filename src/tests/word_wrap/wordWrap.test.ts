@@ -23,5 +23,6 @@ function wordWrap(text: string, width: number) {
 describe('Word wrap', () => {
     it('makes every single line of text fit the column width', () => {
         expect(wordWrap('', 5)).toBe('')
+        expect(wordWrap('hello', 5)).toBe('hello')
     });
 });
