@@ -22,7 +22,7 @@ function wordWrap(text: string, columnWidth: number) {
     }
     const wrappedText = text.substring(0, columnWidth) + '\n';
     const unwrappedText = text.substring(columnWidth);
-    return wrappedText + wordWrap(unwrappedText, columnWidth)
+    return wrappedText.concat(wordWrap(unwrappedText, columnWidth))
 }
 
 describe('Word wrap', () => {
