@@ -1,8 +1,8 @@
 /**
  * Word wrap: Develop the algorithm to add break lines when the text doesn't fit in the window.
- * This function uses the text and the number of characters that fit in a column (column width).
+ * This function uses the text and the number of characters that fit in a column (column columnWidth).
  *
- * Later, you will have to add preference with spaces over the column width
+ * Later, you will have to add preference with spaces over the column columnWidth
  *
  * Possible cases:
  * - ('', 5) -> ''
@@ -16,7 +16,10 @@
  * - ('hello', -5) -> throw exception
  */
 
-function wordWrap(text: string, width: number) {
+function wordWrap(text: string, columnWidth: number) {
+    if (text.length > columnWidth) {
+        return text.substring(0, columnWidth) + '\n' + text.substring(columnWidth)
+    }
     return text
 }
 
