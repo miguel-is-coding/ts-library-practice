@@ -20,15 +20,12 @@ function wordWrap(text: string, columnWidth: number) {
     if (text.length <= columnWidth) {
         return text;
     }
-    let wrappedText: string;
-    let unwrappedText: string;
-    if (text.indexOf(' ') > -1 && text.indexOf(' ') < columnWidth) {
-        wrappedText = text.substring(0, text.indexOf(' ')).concat('\n');
-        unwrappedText = text.substring(text.indexOf(' ') + 1);
-    } else {
-        wrappedText = text.substring(0, columnWidth) + '\n';
-        unwrappedText = text.substring(columnWidth);
-    }
+    const spaceCharIndex = text.indexOf(' ');
+    const canWrapBySpace = spaceCharIndex > -1 && spaceCharIndex < columnWidth;
+    const wrapIndex = canWrapBySpace ? spaceCharIndex : columnWidth;
+    const unwrapIndex = canWrapBySpace ? spaceCharIndex + 1 : columnWidth;
+    const wrappedText = text.substring(0, wrapIndex) + '\n';
+    const unwrappedText = text.substring(unwrapIndex);
     return wrappedText.concat(wordWrap(unwrappedText, columnWidth));
 }
 
