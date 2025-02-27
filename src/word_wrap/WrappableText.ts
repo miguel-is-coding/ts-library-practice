@@ -11,16 +11,24 @@ export class WrappableText {
         return new WrappableText(text);
     }
 
-    value(): String {
-        return this.text;
-    }
-
     fitsIn(columnWidth: ColumnWidth) {
         return this.value().length <= columnWidth.value()
     }
 
+    wrappedText(columnWidth: ColumnWidth) {
+        return this.value().substring(0, this.wrapIndex(columnWidth)) + '\n';
+    }
+
     private wrapIndex(columnWidth: ColumnWidth) {
         return this.canWrapBySpace(columnWidth) ? this.indexOfSpace() : columnWidth.value();
+    }
+
+    unwrappedText(columnWidth: ColumnWidth) {
+        return this.value().substring(this.unwrapIndex(columnWidth));
+    }
+
+    private unwrapIndex(columnWidth: ColumnWidth) {
+        return this.canWrapBySpace(columnWidth) ? this.indexOfSpace() + 1 : columnWidth.value();
     }
 
     private canWrapBySpace(columnWidth: ColumnWidth) {
@@ -31,15 +39,7 @@ export class WrappableText {
         return this.value().indexOf(' ');
     }
 
-    private unwrapIndex(columnWidth: ColumnWidth) {
-        return this.canWrapBySpace(columnWidth) ? this.indexOfSpace() + 1 : columnWidth.value();
-    }
-
-    wrappedText(columnWidth: ColumnWidth) {
-        return this.value().substring(0, this.wrapIndex(columnWidth)) + '\n';
-    }
-
-    unwrappedText(columnWidth: ColumnWidth) {
-        return this.value().substring(this.unwrapIndex(columnWidth));
+    value(): String {
+        return this.text;
     }
 }
