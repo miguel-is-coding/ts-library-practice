@@ -16,7 +16,7 @@ export class WrappableText {
     }
 
     wrappedText(columnWidth: ColumnWidth) {
-        return this.value().substring(0, this.wrapIndex(columnWidth)) + '\n';
+        return WrappableText.create(this.value().substring(0, this.wrapIndex(columnWidth)) + '\n');
     }
 
     private wrapIndex(columnWidth: ColumnWidth) {
@@ -24,7 +24,7 @@ export class WrappableText {
     }
 
     unwrappedText(columnWidth: ColumnWidth) {
-        return this.value().substring(this.unwrapIndex(columnWidth));
+        return WrappableText.create(this.value().substring(this.unwrapIndex(columnWidth)));
     }
 
     private unwrapIndex(columnWidth: ColumnWidth) {

@@ -40,5 +40,5 @@ function wordWrapNoPrimitives(text: WrappableText, columnWidth: ColumnWidth): St
     }
     const wrappedText = text.wrappedText(columnWidth);
     const unwrappedText = text.unwrappedText(columnWidth);
-    return wrappedText.concat(wordWrapOld(unwrappedText, columnWidth.value()));
+    return wrappedText.value().concat(wordWrapOld(unwrappedText.value(), columnWidth.value()));
 }
