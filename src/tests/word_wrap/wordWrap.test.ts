@@ -17,6 +17,9 @@
  */
 
 function wordWrap(text: string, columnWidth: number) {
+    if (columnWidth < 0) {
+        throw new Error('Column width cannot be negative')
+    }
     if (text == null) {
         return '';
     }
@@ -53,5 +56,6 @@ describe('Word wrap', () => {
         expect(wordWrap(' abcd', 4)).toBe('\nabcd');
         expect(wordWrap(null, 4)).toBe('');
         expect(wordWrap(undefined, 4)).toBe('');
+        expect(() => wordWrap('hello', -5)).toThrow('Column width cannot be negative');
     });
 });
