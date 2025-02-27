@@ -25,7 +25,7 @@ export class WrappableText {
         return canWrapBySpace ? spaceCharIndex : columnWidth.value();
     }
 
-    unwrapIndex(columnWidth: ColumnWidth) {
+    private unwrapIndex(columnWidth: ColumnWidth) {
         const spaceCharIndex = this.value().indexOf(' ');
         const canWrapBySpace = spaceCharIndex > -1 && spaceCharIndex < columnWidth.value();
         return canWrapBySpace ? spaceCharIndex + 1 : columnWidth.value();
@@ -33,5 +33,9 @@ export class WrappableText {
 
     wrappedText(columnWidth: ColumnWidth) {
         return this.value().substring(0, this.wrapIndex(columnWidth)) + '\n';
+    }
+
+    unwrappedText(columnWidth: ColumnWidth) {
+        return this.value().substring(this.unwrapIndex(columnWidth));
     }
 }

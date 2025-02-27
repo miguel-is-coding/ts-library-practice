@@ -38,8 +38,7 @@ function wordWrapNoPrimitives(text: WrappableText, columnWidth: ColumnWidth): St
     if (text.fitsIn(columnWidth)) {
         return text.value();
     }
-    const unwrapIndex = text.unwrapIndex(columnWidth);
     const wrappedText = text.wrappedText(columnWidth);
-    const unwrappedText = text.value().substring(unwrapIndex);
+    const unwrappedText = text.unwrappedText(columnWidth);
     return wrappedText.concat(wordWrapOld(unwrappedText, columnWidth.value()));
 }
