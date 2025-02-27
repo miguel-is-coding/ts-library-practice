@@ -20,15 +20,19 @@ export class WrappableText {
     }
 
     private wrapIndex(columnWidth: ColumnWidth) {
-        const spaceCharIndex = this.value().indexOf(' ');
-        const canWrapBySpace = spaceCharIndex > -1 && spaceCharIndex < columnWidth.value();
-        return canWrapBySpace ? spaceCharIndex : columnWidth.value();
+        return this.canWrapBySpace(columnWidth) ? this.indexOfSpace() : columnWidth.value();
+    }
+
+    private canWrapBySpace(columnWidth: ColumnWidth) {
+        return this.indexOfSpace() > -1 && this.indexOfSpace() < columnWidth.value();
+    }
+
+    private indexOfSpace() {
+        return this.value().indexOf(' ');
     }
 
     private unwrapIndex(columnWidth: ColumnWidth) {
-        const spaceCharIndex = this.value().indexOf(' ');
-        const canWrapBySpace = spaceCharIndex > -1 && spaceCharIndex < columnWidth.value();
-        return canWrapBySpace ? spaceCharIndex + 1 : columnWidth.value();
+        return this.canWrapBySpace(columnWidth) ? this.indexOfSpace() + 1 : columnWidth.value();
     }
 
     wrappedText(columnWidth: ColumnWidth) {
