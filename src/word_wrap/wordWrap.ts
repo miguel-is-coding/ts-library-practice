@@ -35,10 +35,10 @@ export function wordWrap(text: string, columnWidth: number) {
 }
 
 function wordWrapNoPrimitives(text: WrappableText, columnWidth: ColumnWidth): String {
-    if (text.value().length <= columnWidth.value()) {
+    if (text.fitsIn(columnWidth)) {
         return text.value();
     }
-    const wrapIndex = getWrapIndex(text.value(), columnWidth.value());
+    const wrapIndex = text.wrapIndex(columnWidth);
     const unwrapIndex = getUnwrapIndex(text.value(), columnWidth.value());
     const wrappedText = text.value().substring(0, wrapIndex) + '\n';
     const unwrappedText = text.value().substring(unwrapIndex);
