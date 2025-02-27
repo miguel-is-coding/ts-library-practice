@@ -24,4 +24,10 @@ export class WrappableText {
         const canWrapBySpace = spaceCharIndex > -1 && spaceCharIndex < columnWidth.value();
         return canWrapBySpace ? spaceCharIndex : columnWidth.value();
     }
+
+    unwrapIndex(columnWidth: ColumnWidth) {
+        const spaceCharIndex = this.value().indexOf(' ');
+        const canWrapBySpace = spaceCharIndex > -1 && spaceCharIndex < columnWidth.value();
+        return canWrapBySpace ? spaceCharIndex + 1 : columnWidth.value();
+    }
 }
