@@ -1,6 +1,7 @@
 import {ColumnWidth} from "./columnWidth";
+import {WrappableText} from "./WrappableText";
 
-function wordWrapOld(text: string, columnWidth: number) {
+function wordWrapOld(text: String, columnWidth: number) {
     if (columnWidth < 0) {
         throw new Error('Column width cannot be negative')
     }
@@ -17,32 +18,29 @@ function wordWrapOld(text: string, columnWidth: number) {
     return wrappedText.concat(wordWrapOld(unwrappedText, columnWidth));
 }
 
-function getWrapIndex(text: string, columnWidth: number) {
+function getWrapIndex(text: String, columnWidth: number) {
     const spaceCharIndex = text.indexOf(' ');
     const canWrapBySpace = spaceCharIndex > -1 && spaceCharIndex < columnWidth;
     return canWrapBySpace ? spaceCharIndex : columnWidth;
 }
 
-function getUnwrapIndex(text: string, columnWidth: number) {
+function getUnwrapIndex(text: String, columnWidth: number) {
     const spaceCharIndex = text.indexOf(' ');
     const canWrapBySpace = spaceCharIndex > -1 && spaceCharIndex < columnWidth;
     return canWrapBySpace ? spaceCharIndex + 1 : columnWidth;
 }
 
 export function wordWrap(text: string, columnWidth: number) {
-    return wordWrapNoPrimitives(text, ColumnWidth.create(columnWidth))
+    return wordWrapNoPrimitives(WrappableText.create(text), ColumnWidth.create(columnWidth))
 }
 
-function wordWrapNoPrimitives(text: string, columnWidth: ColumnWidth) {
-    if (text == null) {
-        return '';
+function wordWrapNoPrimitives(text: WrappableText, columnWidth: ColumnWidth): String {
+    if (text.value().length <= columnWidth.value()) {
+        return text.value();
     }
-    if (text.length <= columnWidth.value()) {
-        return text;
-    }
-    const wrapIndex = getWrapIndex(text, columnWidth.value());
-    const unwrapIndex = getUnwrapIndex(text, columnWidth.value());
-    const wrappedText = text.substring(0, wrapIndex) + '\n';
-    const unwrappedText = text.substring(unwrapIndex);
+    const wrapIndex = getWrapIndex(text.value(), columnWidth.value());
+    const unwrapIndex = getUnwrapIndex(text.value(), columnWidth.value());
+    const wrappedText = text.value().substring(0, wrapIndex) + '\n';
+    const unwrappedText = text.value().substring(unwrapIndex);
     return wrappedText.concat(wordWrapOld(unwrappedText, columnWidth.value()));
 }
