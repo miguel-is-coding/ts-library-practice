@@ -17,7 +17,7 @@
  */
 
 function wordWrap(text: string, columnWidth: number) {
-    if (text === null) {
+    if (text === null || typeof text === "undefined") {
         return '';
     }
     if (text.length <= columnWidth) {
@@ -52,5 +52,6 @@ describe('Word wrap', () => {
         expect(wordWrap('abc def ghi', 4)).toBe('abc\ndef\nghi');
         expect(wordWrap(' abcd', 4)).toBe('\nabcd');
         expect(wordWrap(null, 4)).toBe('');
+        expect(wordWrap(undefined, 4)).toBe('');
     });
 });
