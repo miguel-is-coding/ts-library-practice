@@ -1,10 +1,10 @@
 import {ColumnWidth} from "./columnWidth";
 
 export class WrappableText {
-    private constructor(private readonly text: String) {
+    private constructor(private readonly text: string) {
     }
 
-    static create(text: String) {
+    static create(text: string) {
         if (text == null) {
             return new WrappableText('');
         }
@@ -13,6 +13,10 @@ export class WrappableText {
 
     fitsIn(columnWidth: ColumnWidth) {
         return this.value().length <= columnWidth.value()
+    }
+
+    concat(text: WrappableText) {
+        return WrappableText.create(this.value().concat(text.value()));
     }
 
     wrappedText(columnWidth: ColumnWidth) {
@@ -39,7 +43,7 @@ export class WrappableText {
         return this.value().indexOf(' ');
     }
 
-    value(): String {
+    value() {
         return this.text;
     }
 }

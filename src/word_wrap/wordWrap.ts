@@ -34,11 +34,11 @@ export function wordWrap(text: string, columnWidth: number) {
     return wordWrapNoPrimitives(WrappableText.create(text), ColumnWidth.create(columnWidth))
 }
 
-function wordWrapNoPrimitives(text: WrappableText, columnWidth: ColumnWidth): String {
+function wordWrapNoPrimitives(text: WrappableText, columnWidth: ColumnWidth): WrappableText {
     if (text.fitsIn(columnWidth)) {
-        return text.value();
+        return text;
     }
     const wrappedText = text.wrappedText(columnWidth);
     const unwrappedText = text.unwrappedText(columnWidth);
-    return wrappedText.value().concat(wordWrapOld(unwrappedText.value(), columnWidth.value()));
+    return wrappedText.concat(wordWrapNoPrimitives(unwrappedText, columnWidth));
 }
