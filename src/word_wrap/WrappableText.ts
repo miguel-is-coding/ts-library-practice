@@ -11,15 +11,24 @@ export class WrappableText {
         return new WrappableText(text);
     }
 
-    fitsIn(columnWidth: ColumnWidth) {
+    wordWrap(columnWidth: ColumnWidth) {
+        if (this.fitsIn(columnWidth)) {
+            return WrappableText.create(this.value());
+        }
+        const wrappedText = this.wrappedText(columnWidth);
+        const unwrappedText = this.unwrappedText(columnWidth);
+        return wrappedText.concat(unwrappedText.wordWrap(columnWidth));
+    }
+
+    private fitsIn(columnWidth: ColumnWidth) {
         return this.value().length <= columnWidth.value()
     }
 
-    concat(text: WrappableText) {
+    private concat(text: WrappableText) {
         return WrappableText.create(this.value().concat(text.value()));
     }
 
-    wrappedText(columnWidth: ColumnWidth) {
+    private wrappedText(columnWidth: ColumnWidth) {
         return WrappableText.create(this.value().substring(0, this.wrapIndex(columnWidth)) + '\n');
     }
 
@@ -27,7 +36,7 @@ export class WrappableText {
         return this.canWrapBySpace(columnWidth) ? this.indexOfSpace() : columnWidth.value();
     }
 
-    unwrappedText(columnWidth: ColumnWidth) {
+    private unwrappedText(columnWidth: ColumnWidth) {
         return WrappableText.create(this.value().substring(this.unwrapIndex(columnWidth)));
     }
 
