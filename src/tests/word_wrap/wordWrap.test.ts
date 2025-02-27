@@ -17,7 +17,7 @@
  */
 
 function wordWrap(text: string, columnWidth: number) {
-    if (text === null || typeof text === "undefined") {
+    if (text == null) {
         return '';
     }
     if (text.length <= columnWidth) {
