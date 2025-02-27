@@ -17,6 +17,9 @@
  */
 
 function wordWrap(text: string, columnWidth: number) {
+    if (text === null) {
+        return '';
+    }
     if (text.length <= columnWidth) {
         return text;
     }
@@ -48,5 +51,6 @@ describe('Word wrap', () => {
         expect(wordWrap('abc def', 4)).toBe('abc\ndef');
         expect(wordWrap('abc def ghi', 4)).toBe('abc\ndef\nghi');
         expect(wordWrap(' abcd', 4)).toBe('\nabcd');
+        expect(wordWrap(null, 4)).toBe('');
     });
 });
