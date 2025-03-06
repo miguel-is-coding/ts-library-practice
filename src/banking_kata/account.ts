@@ -9,7 +9,7 @@ export class Account {
     }
 
     withdraw(amount: number) {
-
+        this.repository.addWithdrawal(amount);
     }
 
     printStatement(): void {
