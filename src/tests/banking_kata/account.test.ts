@@ -12,4 +12,12 @@ describe('The account', () => {
 
         expect(addDepositSpy).toHaveBeenCalledWith(100);
     });
+
+    it('stores a withdrawal transaction', () => {
+        const addWithdrawalSpy = jest.spyOn(repository, 'addWithdrawal');
+
+        account.withdraw(100);
+
+        expect(addWithdrawalSpy).toHaveBeenCalledWith(100);
+    });
 });
