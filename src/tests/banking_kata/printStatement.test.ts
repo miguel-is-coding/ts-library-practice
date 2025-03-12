@@ -1,17 +1,20 @@
 import {Console} from "../../banking_kata/console";
 import {Account} from "../../banking_kata/account";
 import {TransactionRepository} from "../../banking_kata/transactionRepository";
+import {StatementPrinter} from "../../banking_kata/statementPrinter";
 
 describe('Print statement', () => {
     const console = new Console();
     const consoleSpy = jest.spyOn(console, 'log');
     const repository = new TransactionRepository();
-    const account = new Account(repository);
+    const statementPrinter = new StatementPrinter();
+    const account = new Account(repository, statementPrinter);
 
     it('prints an account statement with its transactions', () => {
         account.deposit(1000);
         account.withdraw(500);
         account.deposit(2000);
+        account.printStatement()
 
         expect(consoleSpy).toHaveBeenCalledWith('Date | Amount | Balance');
         expect(consoleSpy).toHaveBeenCalledWith('05/03/2025 | 2000 | 2500');

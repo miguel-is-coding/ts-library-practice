@@ -1,9 +1,12 @@
 import {Account} from "../../banking_kata/account";
 import {TransactionRepository} from "../../banking_kata/transactionRepository";
+import {StatementPrinter} from "../../banking_kata/statementPrinter";
+import {Transaction} from "../../banking_kata/transaction";
 
 describe('The account', () => {
     const repository = new TransactionRepository();
-    const account = new Account(repository);
+    const statementPrinter = new StatementPrinter()
+    const account = new Account(repository, statementPrinter);
 
     it('stores a deposit transaction', () => {
         const addDepositSpy = jest.spyOn(repository, 'addDeposit');
@@ -19,5 +22,15 @@ describe('The account', () => {
         account.withdraw(100);
 
         expect(addWithdrawalSpy).toHaveBeenCalledWith(100);
+    });
+
+    it('prints the statement', () => {
+        const printStatementSpy = jest.spyOn(statementPrinter, 'print');
+        const transactions = [new Transaction(), new Transaction()];
+        repository.allTransactions = () => transactions;
+
+        account.printStatement();
+
+        expect(printStatementSpy).toHaveBeenCalledWith(transactions);
     });
 });
