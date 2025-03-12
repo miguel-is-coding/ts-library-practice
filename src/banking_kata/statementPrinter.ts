@@ -13,10 +13,14 @@ export class StatementPrinter {
             const transaction = transactions[0];
             let currentBalance = 0;
             currentBalance += transaction.amount;
-            const formattedAmount = transaction.amount.toFixed(2);
-            const formattedBalance = currentBalance.toFixed(2);
-            this.console.log(`${transaction.date} | ${formattedAmount} | ${formattedBalance}`)
+            this.console.log(this.formatStatementLine(transaction, currentBalance));
         }
+    }
+
+    private formatStatementLine(transaction: Transaction, currentBalance: number) {
+        const formattedAmount = transaction.amount.toFixed(2);
+        const formattedBalance = currentBalance.toFixed(2);
+        return `${transaction.date} | ${formattedAmount} | ${formattedBalance}`
     }
 }
 
