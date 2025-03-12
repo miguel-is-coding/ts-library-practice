@@ -8,7 +8,7 @@ describe('Print statement', () => {
     const console = new Console();
     const consoleSpy = jest.spyOn(console, 'log');
     const repository = new TransactionRepository(new Clock());
-    const statementPrinter = new StatementPrinter();
+    const statementPrinter = new StatementPrinter(console);
     const account = new Account(repository, statementPrinter);
 
     it('prints an account statement with its transactions', () => {

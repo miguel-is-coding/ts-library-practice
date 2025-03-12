@@ -3,10 +3,11 @@ import {TransactionRepository} from "../../banking_kata/transactionRepository";
 import {StatementPrinter} from "../../banking_kata/statementPrinter";
 import {Transaction} from "../../banking_kata/transaction";
 import {Clock} from "../../banking_kata/clock";
+import {Console} from "../../banking_kata/console";
 
 describe('The account', () => {
     const repository = new TransactionRepository(new Clock());
-    const statementPrinter = new StatementPrinter()
+    const statementPrinter = new StatementPrinter(new Console())
     const account = new Account(repository, statementPrinter);
 
     it('stores a deposit transaction', () => {
