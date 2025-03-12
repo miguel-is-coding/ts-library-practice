@@ -12,7 +12,8 @@ export class TransactionRepository {
     }
 
     addDeposit(amount: number) {
-        this.transactions.push(new Transaction(this.clock.todayFormatted(), amount))
+        const transaction = new Transaction(this.clock.todayFormatted(), amount);
+        this.transactions.push(transaction)
     }
 
     addWithdrawal(amount: number) {
