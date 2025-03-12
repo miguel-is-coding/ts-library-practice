@@ -17,5 +17,7 @@ export class TransactionRepository {
     }
 
     addWithdrawal(amount: number) {
+        const transaction = new Transaction(this.clock.todayFormatted(), -amount);
+        this.transactions.push(transaction)
     }
 }
