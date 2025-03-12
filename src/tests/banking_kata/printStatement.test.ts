@@ -2,11 +2,12 @@ import {Console} from "../../banking_kata/console";
 import {Account} from "../../banking_kata/account";
 import {TransactionRepository} from "../../banking_kata/transactionRepository";
 import {StatementPrinter} from "../../banking_kata/statementPrinter";
+import {Clock} from "../../banking_kata/clock";
 
 describe('Print statement', () => {
     const console = new Console();
     const consoleSpy = jest.spyOn(console, 'log');
-    const repository = new TransactionRepository();
+    const repository = new TransactionRepository(new Clock());
     const statementPrinter = new StatementPrinter();
     const account = new Account(repository, statementPrinter);
 

@@ -2,9 +2,10 @@ import {Account} from "../../banking_kata/account";
 import {TransactionRepository} from "../../banking_kata/transactionRepository";
 import {StatementPrinter} from "../../banking_kata/statementPrinter";
 import {Transaction} from "../../banking_kata/transaction";
+import {Clock} from "../../banking_kata/clock";
 
 describe('The account', () => {
-    const repository = new TransactionRepository();
+    const repository = new TransactionRepository(new Clock());
     const statementPrinter = new StatementPrinter()
     const account = new Account(repository, statementPrinter);
 
@@ -26,7 +27,7 @@ describe('The account', () => {
 
     it('prints the statement', () => {
         const printStatementSpy = jest.spyOn(statementPrinter, 'print');
-        const transactions = [new Transaction(), new Transaction()];
+        const transactions = [new Transaction('0/0/0000', 100), new Transaction('0/0/0000', 100)];
         repository.allTransactions = () => transactions;
 
         account.printStatement();

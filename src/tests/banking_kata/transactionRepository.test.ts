@@ -7,7 +7,7 @@ describe('Transaction repository', () => {
         const today = '12/03/2024';
         const clock = new Clock();
         clock.todayFormatted = () => today;
-        const repository = new TransactionRepository();
+        const repository = new TransactionRepository(clock);
         const amount = 100;
 
         repository.addDeposit(amount);
